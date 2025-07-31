@@ -4,6 +4,7 @@ struct DiceView: View {
     let value: String
     let symbol: String
     let isRolling: Bool
+    let rotationSpeed: Double
     let size: CGFloat = 120
 
     @State private var rotationAngle: Double = 0
@@ -32,11 +33,11 @@ struct DiceView: View {
                 .opacity(isRolling ? (sin(rotationAngle * .pi / 180) < 0 ? 0.3 : 1.0) : 1.0)
             .onChange(of: isRolling) { _, newValue in
                 if newValue {
-                    withAnimation(.linear(duration: 0.1).repeatForever(autoreverses: false)) {
-                        rotationAngle = 3600 // 10 full rotations
+                    withAnimation(.linear(duration: rotationSpeed).repeatForever(autoreverses: false)) {
+                        rotationAngle = 720
                     }
                 } else {
-                    withAnimation(.easeOut(duration: 0.5)) {
+                    withAnimation(.easeOut(duration: 1.0)) {
                         rotationAngle = 0
                     }
                 }
@@ -47,12 +48,14 @@ struct DiceView: View {
 struct WhoDrinksDice: View {
     let whoDrinks: WhoDrinks
     let isRolling: Bool
+    let rotationSpeed: Double
 
     var body: some View {
         DiceView(
             value: whoDrinks.rawValue,
             symbol: whoDrinks.symbol,
-            isRolling: isRolling
+            isRolling: isRolling,
+            rotationSpeed: rotationSpeed
         )
     }
 }
@@ -60,12 +63,14 @@ struct WhoDrinksDice: View {
 struct HowMuchDice: View {
     let howMuch: HowMuch
     let isRolling: Bool
+    let rotationSpeed: Double
 
     var body: some View {
         DiceView(
             value: howMuch.rawValue,
             symbol: howMuch.symbol,
-            isRolling: isRolling
+            isRolling: isRolling,
+            rotationSpeed: rotationSpeed
         )
     }
 }

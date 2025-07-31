@@ -12,11 +12,6 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 40) {
-            Text("Drunken Dice")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .foregroundColor(.primary)
-            
             HStack(spacing: 30) {
                 VStack(spacing: 16) {
                     Text("Who Drinks")
@@ -25,7 +20,8 @@ struct ContentView: View {
                     
                     WhoDrinksDice(
                         whoDrinks: diceRoller.whoDrinks,
-                        isRolling: diceRoller.isRolling
+                        isRolling: diceRoller.isWhoRolling,
+                        rotationSpeed: diceRoller.whoRotationSpeed
                     )
                 }
                 
@@ -36,7 +32,8 @@ struct ContentView: View {
                     
                     HowMuchDice(
                         howMuch: diceRoller.howMuch,
-                        isRolling: diceRoller.isRolling
+                        isRolling: diceRoller.isHowMuchRolling,
+                        rotationSpeed: diceRoller.howMuchRotationSpeed
                     )
                 }
             }
@@ -58,10 +55,10 @@ struct ContentView: View {
             .scaleEffect(diceRoller.isRolling ? 0.9 : 1.0)
             .animation(.easeInOut(duration: 0.1), value: diceRoller.isRolling)
             
-            Spacer()
         }
         .padding()
         .background(Color(.systemBackground))
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 }
 
